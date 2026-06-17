@@ -51,15 +51,29 @@ function showAlreadySubmitted() {
   document.getElementById(panel).classList.add('show');
 }
 
-// ── ATTEND TOGGLES ───────────────────────────────────────
-function toggleSection(id) {
-  const checked = document.getElementById('attend-' + id).checked;
-  document.getElementById(id + '-section').style.display = checked ? 'block' : 'none';
+// ── SECTION OPT-OUT ──────────────────────────────────────
+function skipSection(id) {
+  const skipped = document.getElementById('skip-' + id).checked;
+  document.getElementById(id + '-section').classList.toggle('is-skipped', skipped);
+  if (skipped) {
+    const g = id === 'mat' ? 'food' : 'movie';
+    document.querySelectorAll('.card-opt[data-g="' + g + '"]').forEach(c => c.classList.remove('selected'));
+    document.getElementById(id === 'mat' ? 'food-result' : 'movie-result').classList.remove('show', 'error');
+  }
   if (id === 'kino') {
-    document.getElementById('vipps-section').style.display = checked ? 'block' : 'none';
-    if (!checked) document.getElementById('accept-200').checked = false;
+    document.getElementById('vipps-section').style.display = skipped ? 'none' : '';
+    if (skipped) document.getElementById('accept-200').checked = false;
   }
   document.getElementById('attend-error').classList.remove('show');
+  const bothSkipped = document.getElementById('skip-mat').checked && document.getElementById('skip-kino').checked;
+  const submitBtn = document.querySelector('#submit-block .submit-btn');
+  submitBtn.disabled = bothSkipped;
+  submitBtn.style.opacity = bothSkipped ? '0.4' : '';
+  submitBtn.style.cursor  = bothSkipped ? 'not-allowed' : '';
+  const nickInput = document.getElementById('nick-name');
+  nickInput.disabled = bothSkipped;
+  nickInput.style.opacity = bothSkipped ? '0.4' : '';
+  nickInput.placeholder = bothSkipped ? 'faen ta' : 'fantasien er grensen';
 }
 
 // ── RADIO CARDS ──────────────────────────────────────────
@@ -91,11 +105,11 @@ async function doSubmit() {
   const name = requireName();
   if (!name) return;
 
-  const kinoChecked = document.getElementById('attend-kino').checked;
-  const matChecked  = document.getElementById('attend-mat').checked;
+  const kinoChecked = !document.getElementById('skip-kino').checked;
+  const matChecked  = !document.getElementById('skip-mat').checked;
   if (!kinoChecked && !matChecked) {
     const err = document.getElementById('attend-error');
-    err.textContent = '👆 Velg minst ett alternativ!';
+    err.textContent = '👆 Du må delta på minst ett!';
     err.classList.add('show');
     err.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;

@@ -63,29 +63,15 @@
       <input class="text-input" type="text" placeholder="fantasien er grensen" id="nick-name">
     </div>
 
-    <!-- Attend toggles -->
-    <div class="form-block">
-      <label class="form-label">(VELG SÅ MANGE DU VIL) Hva vil du delta på? <span class="required-star">*</span></label>
-      <div class="attend-row">
-        <label class="attend-toggle">
-          <input type="checkbox" id="attend-mat" onchange="toggleSection('mat')">
-          <span class="attend-toggle-icon">🍝</span>
-          <span class="attend-toggle-text">Restaurant (CA. KLOKKEN 18:00)</span>
-          <span class="attend-toggle-dot"></span>
-        </label>
-        <label class="attend-toggle">
-          <input type="checkbox" id="attend-kino" onchange="toggleSection('kino')">
-          <span class="attend-toggle-icon">🎬</span>
-          <span class="attend-toggle-text">Kino (CA. KLOKKEN 20:00)</span>
-          <span class="attend-toggle-dot"></span>
+    <!-- Restaurant choice -->
+    <div class="form-block" id="mat-section">
+      <div class="section-label-row">
+        <span class="form-label">🍝 Mat - velg en</span>
+        <label class="section-skip-label">
+          <input type="checkbox" id="skip-mat" onchange="skipSection('mat')">
+          <span>Jeg kan ikke komme til mat</span>
         </label>
       </div>
-      <div class="field-error" id="attend-error"></div>
-    </div>
-    
-    <!-- Restaurant choice -->
-    <div class="form-block section-collapsible" id="mat-section">
-      <label class="form-label">🍝 Mat - velg en</label>
       <div class="cards-row cols-3">
         <div class="card-opt" data-g="food" data-v="motherindia" onclick="pick(this)">
           <div class="card-opt-check"></div>
@@ -110,8 +96,14 @@
     </div>
 
     <!-- Movie choice -->
-    <div class="form-block section-collapsible" id="kino-section">
-      <label class="form-label">🎬 Kino - velg en</label>
+    <div class="form-block" id="kino-section">
+      <div class="section-label-row">
+        <span class="form-label">🎬 Kino - velg en</span>
+        <label class="section-skip-label">
+          <input type="checkbox" id="skip-kino" onchange="skipSection('kino')">
+          <span>Jeg kan ikke komme til kino</span>
+        </label>
+      </div>
       <div class="kino-note">🍺 Vi kan kjøpe alkohol i kinosalen</div>
       <div class="top-margin cards-row cols-3">
         <div class="card-opt" data-g="movie" data-v="jumanji" onclick="pick(this)">
@@ -139,7 +131,8 @@
 
     <!-- Submit -->
     <div class="submit-block" id="submit-block">
-      <div id="vipps-section" style="display:none; width:100%">
+      <div class="field-error" id="attend-error"></div>
+      <div id="vipps-section" style="width:100%">
         <label class="accept-label">
           <input type="checkbox" id="accept-200" class="accept-check">
           <span>JEG AKSEPTERER AT ET VIPPSKRAV PÅ 200KR KOMMER I FORKANT FOR AT VI SKAL HA EN HEL KINOSAL</span>
