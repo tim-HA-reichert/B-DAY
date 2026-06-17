@@ -1,3 +1,3 @@
-#he got birthday
+he got birthday
 
 it his birthday
