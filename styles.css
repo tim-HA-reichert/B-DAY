@@ -90,8 +90,6 @@ body {
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: calc(50vh - 60px);
-  max-height: 800px;
   overflow: hidden;
 }
 .hero-left {
@@ -511,7 +509,6 @@ body.after-gate #rsvp  { animation: bounceUp 0.55s ease 0.2s both; }
   .hero {
     max-width: 1400px;
     margin: 0 auto;
-    min-height: 500px;
   }
   .hero-left { padding: 100px 80px 100px 100px; }
   .hero-name  { font-size: 100px; }
