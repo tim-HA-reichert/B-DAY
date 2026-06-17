@@ -4,8 +4,12 @@ console.log("ikke se her det er vibe-coded som f")
 const PARTY_PASSWORD = 'max32'; //HEHE SECURITY-MANNEN
 const FORMSPREE_URL  = 'https://formspree.io/f/mpqeelqk'; // TODO: swap in your real endpoint
 
+// Prevent browser from restoring previous scroll position
+history.scrollRestoration = 'manual';
+
 // ── INIT ────────────────────────────────────────────────
 (function init() {
+  window.scrollTo(0, 0);
   // Already submitted — skip gate, show done state
   if (localStorage.getItem('rsvp_done')) {
     showAlreadySubmitted();
@@ -33,6 +37,7 @@ function submitPassword() {
       gate.classList.remove('visible', 'closing');
       document.body.classList.remove('gate-active');
       document.body.classList.add('after-gate');
+      window.scrollTo(0, 0);
     }, { once: true });
   } else {
     document.getElementById('pw-error').textContent = 'Feil passord, prøv igjen 🙈';
@@ -44,6 +49,17 @@ function showAlreadySubmitted() {
   document.querySelectorAll('.form-block, .submit-block').forEach(el => el.style.display = 'none');
   const panel = localStorage.getItem('rsvp_type') === 'cantcome' ? 'success-cant' : 'success';
   document.getElementById(panel).classList.add('show');
+}
+
+// ── ATTEND TOGGLES ───────────────────────────────────────
+function toggleSection(id) {
+  const checked = document.getElementById('attend-' + id).checked;
+  document.getElementById(id + '-section').style.display = checked ? 'block' : 'none';
+  if (id === 'kino') {
+    document.getElementById('vipps-section').style.display = checked ? 'block' : 'none';
+    if (!checked) document.getElementById('accept-200').checked = false;
+  }
+  document.getElementById('attend-error').classList.remove('show');
 }
 
 // ── RADIO CARDS ──────────────────────────────────────────
@@ -75,26 +91,42 @@ async function doSubmit() {
   const name = requireName();
   if (!name) return;
 
-  const moviePick = document.querySelector('.card-opt[data-g="movie"].selected');
-  if (!moviePick) {
-    const result = document.getElementById('movie-result');
-    result.textContent = '👆 Velg en film først!';
-    result.classList.add('show', 'error');
-    result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const kinoChecked = document.getElementById('attend-kino').checked;
+  const matChecked  = document.getElementById('attend-mat').checked;
+  if (!kinoChecked && !matChecked) {
+    const err = document.getElementById('attend-error');
+    err.textContent = '👆 Velg minst ett alternativ!';
+    err.classList.add('show');
+    err.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
 
-  const foodPick = document.querySelector('.card-opt[data-g="food"].selected');
-  if (!foodPick) {
-    const result = document.getElementById('food-result');
-    result.textContent = '👆 Velg en restaurant først!';
-    result.classList.add('show', 'error');
-    result.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    return;
+  let moviePick = null;
+  if (kinoChecked) {
+    moviePick = document.querySelector('.card-opt[data-g="movie"].selected');
+    if (!moviePick) {
+      const result = document.getElementById('movie-result');
+      result.textContent = '👆 Velg en film først!';
+      result.classList.add('show', 'error');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+  }
+
+  let foodPick = null;
+  if (matChecked) {
+    foodPick = document.querySelector('.card-opt[data-g="food"].selected');
+    if (!foodPick) {
+      const result = document.getElementById('food-result');
+      result.textContent = '👆 Velg en restaurant først!';
+      result.classList.add('show', 'error');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
   }
 
   const acceptErr = document.getElementById('accept-error');
-  if (!document.getElementById('accept-200').checked) {
+  if (kinoChecked && !document.getElementById('accept-200').checked) {
     acceptErr.textContent = '👆 Du må akseptere betalingen først!';
     acceptErr.classList.add('show');
     acceptErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -107,12 +139,14 @@ async function doSubmit() {
   btn.textContent = 'Sender…';
 
   const payload = {
-    name:     name,
-    nickname: document.getElementById('nick-name').value.trim(),
-    movie:    movieTitles[moviePick.dataset.v] || moviePick.dataset.v,
-    food:     foodTitles[foodPick.dataset.v]   || foodPick.dataset.v,
+    name:      name,
+    nickname:  document.getElementById('nick-name').value.trim(),
+    kino:      kinoChecked ? 'ja' : 'nei',
+    movie:     moviePick ? (movieTitles[moviePick.dataset.v] || moviePick.dataset.v) : 'ikke kino',
+    mat:       matChecked ? 'ja' : 'nei',
+    food:      foodPick  ? (foodTitles[foodPick.dataset.v]  || foodPick.dataset.v)  : 'ikke restaurant',
     attending: 'ja jeg kommer',
-    vippskrav: 'JEG AKSEPTERER VIPPSKRAV 200KR',
+    vippskrav: kinoChecked ? 'JEG AKSEPTERER VIPPSKRAV 200KR' : 'ikke kino',
     guest_id:  localStorage.getItem('guest_id'),
   };
 

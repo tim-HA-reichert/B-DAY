@@ -320,6 +320,46 @@ body {
 }
 .field-error.show { display: block; }
 
+/* ── ATTEND TOGGLES ── */
+.attend-row { display: flex; gap: 12px; }
+.attend-toggle {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  user-select: none;
+}
+.attend-toggle input { display: none; }
+.attend-toggle:has(input:checked) {
+  border-color: var(--accent);
+  background: var(--accent-pale);
+  box-shadow: 0 4px 14px rgba(255,107,43,0.18);
+}
+.attend-toggle-icon { font-size: 24px; }
+.attend-toggle-text { font-size: 15px; font-weight: 700; color: var(--text); }
+.attend-toggle-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  background: white;
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s;
+}
+.attend-toggle:has(input:checked) .attend-toggle-dot {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.section-collapsible { display: none; }
+
 /* ── SUBMIT ── */
 .submit-block { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; padding-top: 8px; }
 .cant-come-btn { width:fit-content; margin-top: 12px; }
