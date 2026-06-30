@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're Invited</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;500;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Password gate -->
+<div id="pw-gate">
+  <div class="pw-box">
+    <div class="pw-emoji">🎂</div>
+    <h2 class="pw-title">Hva er passordet?</h2>
+    <input class="text-input" type="password" id="pw-input" placeholder="passord…" onkeydown="if(event.key==='Enter') submitPassword()">
+    <button class="submit-btn" onclick="submitPassword()">Kom inn 🎉</button>
+    <div class="pw-error" id="pw-error"></div>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="details">
+  <div class="hero-left">
+    <h1 class="hero-name">Max<br><em>blir 32</em></h1>
+    <div class="hero-age">✨ bursdag ✨</div>
+    <div class="hero-details">
+      <div class="hero-detail-row">
+        <span class="hero-detail-label">Når</span>
+        <span class="hero-detail-val" id="ev-date">3. juli</span>
+      </div>
+      <div class="hero-detail-row">
+        <span class="hero-detail-label">Hvor</span>
+        <span class="hero-detail-val" id="ev-venue">Kristiansand</span>
+      </div>
+      <div class="hero-detail-row">
+        <span class="hero-detail-label">Svarfrist</span>
+        <span class="hero-detail-val">28. juni</span>
+      </div>
+    </div>
+  </div>
+    <img id="hero-img" src="./birthday.jpg" alt="Birthday boy">
+
+</section>
+
+<!-- RSVP -->
+<section id="rsvp">
+  <div class="rsvp-wrapper">
+    <div class="section-badge">🎊 RSVP</div>
+    <h2 class="section-title">Blir du <em>med?</em></h2>
+    <p class="section-sub">Vi trenger litt info.</p>
+
+    <!-- Name -->
+    <div class="form-block">
+      <label class="form-label">Navn takk <span class="required-star">*</span></label>
+      <input class="text-input" type="text" placeholder="hva heter du" id="guest-name">
+      <div class="field-error" id="name-error"></div>
+    </div>
+
+        <div class="form-block">
+      <label class="form-label">Kallenavn for dagen?</label>
+      <input class="text-input" type="text" placeholder="fantasien er grensen" id="nick-name">
+    </div>
+
+    <!-- Restaurant choice -->
+    <div class="form-block" id="mat-section">
+      <div class="section-label-row">
+        <span class="form-label">🍝 Mat - velg en (CA. KL.17:30)</span>
+        <label class="section-skip-label">
+          <input type="checkbox" id="skip-mat" onchange="skipSection('mat')">
+          <span>Jeg kan ikke komme til mat</span>
+        </label>
+      </div>
+      <div class="cards-row cols-3">
+        <div class="card-opt" data-g="food" data-v="motherindia" onclick="pick(this)">
+          <div class="card-opt-check"></div>
+          <span class="card-opt-icon">🍛</span>
+          <div class="card-opt-title">Mother India</div>
+          <div class="card-opt-desc">Indiske smaker</div>
+        </div>
+        <div class="card-opt" data-g="food" data-v="amigos" onclick="pick(this)">
+          <div class="card-opt-check"></div>
+          <span class="card-opt-icon">🌮</span>
+          <div class="card-opt-title">Amigos</div>
+          <div class="card-opt-desc">Meksikanske smaker</div>
+        </div>
+        <div class="card-opt" data-g="food" data-v="tilstede" onclick="pick(this)">
+          <div class="card-opt-check"></div>
+          <span class="card-opt-icon">🥗</span>
+          <div class="card-opt-title">Til Stede</div>
+          <div class="card-opt-desc">Smaker</div>
+        </div>
+      </div>
+      <div class="movie-result" id="food-result"></div>
+    </div>
+
+    <!-- Movie choice -->
+    <div class="form-block" id="kino-section">
+      <div class="section-label-row">
+        <span class="form-label">🎬 Kino - velg en (CA. KL.20:00)</span>
+        <label class="section-skip-label">
+          <input type="checkbox" id="skip-kino" onchange="skipSection('kino')">
+          <span>Jeg kan ikke komme til kino</span>
+        </label>
+      </div>
+      <div class="kino-note">🍺 Vi kan kjøpe alkohol i kinosalen</div>
+      <div class="top-margin cards-row cols-3">
+        <div class="card-opt" data-g="movie" data-v="jumanji" onclick="pick(this)">
+          <div class="card-opt-check"></div>
+          <span class="card-opt-icon">🎲</span>
+          <div class="card-opt-title">Jumanji</div>
+          <div class="card-opt-desc">Når et brettspill er ekte</div>
+        </div>
+        <div class="card-opt" data-g="movie" data-v="spirited" onclick="pick(this)">
+          <div class="card-opt-check"></div>
+          <span class="card-opt-icon">👻</span>
+          <div class="card-opt-title">Spirited Away</div>
+          <div class="card-opt-desc">Eventyr på japansk vis</div>
+        </div>
+        <div class="card-opt" data-g="movie" data-v="yesman" onclick="pick(this)">
+          <div class="card-opt-check"></div>
+          <span class="card-opt-icon">👍</span>
+          <div class="card-opt-title">Yes Man</div>
+          <div class="card-opt-desc">Han sier ja til alt</div>
+        </div>
+      </div>
+      <div class="movie-result" id="movie-result"></div>
+    </div>
+
+
+    <!-- Submit -->
+    <div class="submit-block" id="submit-block">
+      <div class="field-error" id="attend-error"></div>
+      <div id="vipps-section" style="width:100%">
+        <label class="accept-label">
+          <input type="checkbox" id="accept-200" class="accept-check">
+          <span>JEG AKSEPTERER AT ET VIPPSKRAV PÅ 200KR KOMMER I FORKANT FOR AT VI SKAL HA EN HEL KINOSAL</span>
+        </label>
+        <div class="field-error" id="accept-error"></div>
+      </div>
+      <button class="submit-btn" onclick="doSubmit()">JEG KOMMER 🎉</button>
+      <button class="cant-come-btn" onclick="cantCome()">Jeg kan ikke komme 😢</button>
+      <div class="submit-note">✦ leke og ha det gøy ✦</div>
+    </div>
+
+    <div class="success-panel" id="success">
+      <span class="success-emoji">🥳</span>
+      <div class="success-title">Du kommer!!</div>
+      <div class="success-body">Takk, skriv ned datoen eller noe.</div>
+    </div>
+
+    <div class="success-panel cant-come-panel" id="success-cant">
+      <span class="success-emoji">😢</span>
+      <div class="success-title">Synd!</div>
+      <div class="success-body">Vi savner deg allerede.</div>
+    </div>
+  </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

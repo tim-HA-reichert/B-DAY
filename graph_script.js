@@ -22,9 +22,9 @@ const DATA = [
   { name: 'Max',            attending: 'ja',  mat: 'ja',  food: 'Amigos',        kino: 'ja',  movie: 'Jumanji'       },
   { name: 'Christine',      attending: 'ja',  mat: 'ja',  food: 'Til Stede',     kino: 'ja',  movie: 'Yes Man'       },
   { name: 'Tim',            attending: 'ja',  mat: 'ja',  food: 'Mother India',  kino: 'ja',  movie: 'Spirited Away' },
-  { name: 'Johanne',        attending: 'ja',  mat: 'ja',  food: '',              kino: 'nei', movie: ''              },
-  { name: 'Mads',           attending: 'ja',  mat: 'ja',  food: '',              kino: 'nei', movie: ''              },
-  { name: 'Elea',           attending: 'ja',  mat: 'ja',  food: '',              kino: 'nei', movie: ''              },
+  { name: 'Johanne',        attending: 'ja',  mat: 'ja',  food: 'STEMMELØS, VIL KUN SPISE',              kino: 'nei', movie: ''              },
+  { name: 'Mads',           attending: 'ja',  mat: 'ja',  food: 'STEMMELØS, VIL KUN SPISE',              kino: 'nei', movie: ''              },
+  { name: 'Elea',           attending: 'ja',  mat: 'ja',  food: 'STEMMELØS, VIL KUN SPISE',              kino: 'nei', movie: ''              },
 ];
 
 // ───────────────────────────────────────────────────────────────────────────
