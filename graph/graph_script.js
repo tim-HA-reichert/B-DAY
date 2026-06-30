@@ -1,8 +1,11 @@
 const DATA = [
+  { name: 'Remi',           attending: 'ja',  mat: 'ja',  food: 'Mother India',  kino: 'ja',  movie: 'Jumanji'       },
+  { name: 'Helene',         attending: 'ja',  mat: 'ja',  food: 'Mother India',  kino: 'ja',  movie: 'Jumanji'       },
+  { name: 'Richard',        attending: 'nei', mat: '',    food: '',              kino: '',    movie: ''              },
+  { name: 'Julianne',       attending: 'nei', mat: '',    food: '',              kino: '',    movie: ''              },
   { name: 'Thomas',         attending: 'ja',  mat: 'ja',  food: 'Amigos',        kino: 'ja',  movie: 'Jumanji'       },
   { name: 'Catalina',       attending: 'nei', mat: '',    food: '',              kino: '',    movie: ''              },
   { name: 'Daniel E',       attending: 'nei', mat: '',    food: '',              kino: '',    movie: ''              },
-  { name: 'Richard',        attending: 'nei', mat: '',    food: '',              kino: '',    movie: ''              },
   { name: 'Adrian',         attending: 'nei', mat: '',    food: '',              kino: '',    movie: ''              },
   { name: 'Sanne',          attending: 'nei', mat: '',    food: '',              kino: '',    movie: ''              },
   { name: 'Julianne',       attending: 'nei', mat: '',    food: '',              kino: '',    movie: ''              },
@@ -19,6 +22,9 @@ const DATA = [
   { name: 'Max',            attending: 'ja',  mat: 'ja',  food: 'Amigos',        kino: 'ja',  movie: 'Jumanji'       },
   { name: 'Christine',      attending: 'ja',  mat: 'ja',  food: 'Til Stede',     kino: 'ja',  movie: 'Yes Man'       },
   { name: 'Tim',            attending: 'ja',  mat: 'ja',  food: 'Mother India',  kino: 'ja',  movie: 'Spirited Away' },
+  { name: 'Johanne',        attending: 'ja',  mat: 'ja',  food: '',              kino: 'nei', movie: ''              },
+  { name: 'Mads',           attending: 'ja',  mat: 'ja',  food: '',              kino: 'nei', movie: ''              },
+  { name: 'Elea',           attending: 'ja',  mat: 'ja',  food: '',              kino: 'nei', movie: ''              },
 ];
 
 // ───────────────────────────────────────────────────────────────────────────
